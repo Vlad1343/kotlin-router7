@@ -24,15 +24,3 @@ npm run start
 ```
 
 Open `http://localhost:3000`.
-
-## Quick Verification
-
-1. Run type checks:
-```bash
-npm run typecheck
-```
-2. Confirm SSR output exists: `build/server/index.js`.
-3. Open the homepage and verify hydration/interactivity:
-- "Why Kotlin" tabs switch correctly.
-- "Kotlin Usage Highlights" sort toggles (Default / A-Z).
-- Page stays interactive after first render.
