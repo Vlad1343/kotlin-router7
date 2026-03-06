@@ -1,87 +1,38 @@
-# Welcome to React Router!
+# Kotlin Homepage Migration (React Router 7 + SSR)
 
-A modern, production-ready template for building full-stack React applications using React Router.
+Migration of the legacy Kotlin homepage to **React Router 7 Framework Mode** with **server-side rendering**.
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/remix-run/react-router-templates/tree/main/default)
+## Prerequisites
 
-## Features
+- Node.js 20+
+- npm 10+
 
-- 🚀 Server-side rendering
-- ⚡️ Hot Module Replacement (HMR)
-- 📦 Asset bundling and optimization
-- 🔄 Data loading and mutations
-- 🔒 TypeScript by default
-- 🎉 TailwindCSS for styling
-- 📖 [React Router docs](https://reactrouter.com/)
-
-## Getting Started
-
-### Installation
-
-Install the dependencies:
+## Run Locally (Development)
 
 ```bash
 npm install
-```
-
-### Development
-
-Start the development server with HMR:
-
-```bash
 npm run dev
 ```
 
-Your application will be available at `http://localhost:5173`.
+Open `http://localhost:5173`.
 
-## Building for Production
-
-Create a production build:
+## Build and Run (Production SSR)
 
 ```bash
 npm run build
+npm run start
 ```
 
-## Deployment
+Open `http://localhost:3000`.
 
-### Docker Deployment
+## Quick Verification
 
-To build and run using Docker:
-
+1. Run type checks:
 ```bash
-docker build -t my-app .
-
-# Run the container
-docker run -p 3000:3000 my-app
+npm run typecheck
 ```
-
-The containerized application can be deployed to any platform that supports Docker, including:
-
-- AWS ECS
-- Google Cloud Run
-- Azure Container Apps
-- Digital Ocean App Platform
-- Fly.io
-- Railway
-
-### DIY Deployment
-
-If you're familiar with deploying Node applications, the built-in app server is production-ready.
-
-Make sure to deploy the output of `npm run build`
-
-```
-├── package.json
-├── package-lock.json (or pnpm-lock.yaml, or bun.lockb)
-├── build/
-│   ├── client/    # Static assets
-│   └── server/    # Server-side code
-```
-
-## Styling
-
-This template comes with [Tailwind CSS](https://tailwindcss.com/) already configured for a simple default starting experience. You can use whatever CSS framework you prefer.
-
----
-
-Built with ❤️ using React Router.
+2. Confirm SSR output exists: `build/server/index.js`.
+3. Open the homepage and verify hydration/interactivity:
+- "Why Kotlin" tabs switch correctly.
+- "Kotlin Usage Highlights" sort toggles (Default / A-Z).
+- Page stays interactive after first render.

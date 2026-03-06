@@ -1,0 +1,10 @@
+@use "./sections/layout.scss" as layout;
+@use "./sections/header-section.scss" as headerSection;
+@use "./sections/latest-from-kotlin-section.scss" as latestSection;
+@use "./sections/why-kotlin-section.scss" as whySection;
+@use "./sections/usage-section.scss" as usageSection;
+@use "./sections/start-section.scss" as startSection;
+
+.overview-page {
+  background-color: #27282C;
+}

@@ -1,0 +1,67 @@
+import { useMemo } from 'react';
+import { Link } from 'react-router';
+import Button from '@rescui/button';
+import { useTextStyles } from '@rescui/typography';
+import { TabList, Tab, TabSeparator } from '@rescui/tab-list';
+import cn from 'classnames';
+import hljs from 'highlight.js/lib/core';
+import kotlin from 'highlight.js/lib/languages/kotlin';
+import 'highlight.js/styles/github.css';
+import { tabs } from './ProgrammingLanguageData';
+import '../styles/programming-language.scss';
+
+if (!hljs.getLanguage('kotlin')) {
+  hljs.registerLanguage('kotlin', kotlin);
+}
+
+const tabKeys = ['concise', 'safe', 'expressive', 'interoperable', 'multiplatform'] as const;
+
+export function ProgrammingLanguage({ tab, sort }: { tab: string; sort: 'default' | 'name' }) {
+  const textCn = useTextStyles();
+  const activeIndex = Math.max(0, tabKeys.indexOf(tab as (typeof tabKeys)[number]));
+  const activeTab = tabs[activeIndex] ?? tabs[0] ?? { title: 'Concise', code: '' };
+  const highlighted = useMemo(() => {
+    try {
+      // highlight.js v10 API (same major as original source project)
+      return (hljs as any).highlight('kotlin', activeTab.code).value;
+    } catch {
+      // fallback for other API shapes
+      return (hljs as any).highlight(activeTab.code, { language: 'kotlin' }).value;
+    }
+  }, [activeTab]);
+
+  return (
+    <div className="kto-grid kto-grid-gap-32 kto-offset-top-96 kto-offset-top-md-48">
+      <div className="kto-col-4 kto-col-md-12">
+        <h3 className={textCn('rs-h2')}>Modern, concise and safe programming language</h3>
+        <p className={cn(textCn('rs-text-2'), 'kto-offset-top-32')}>
+          Easy to pick up, so you can create powerful applications immediately.
+        </p>
+        <div className="kto-offset-top-32">
+          <Button mode="outline" size="l" href="/docs/getting-started.html">
+            Get started
+          </Button>
+        </div>
+      </div>
+
+      <div className="kto-col-8 kto-col-md-12">
+        <TabList value={activeIndex} onChange={() => {}}>
+          {tabs.map((tab, i) => (
+            <Tab key={i} value={i}>
+              <Link
+                className="programming-language__tab-link"
+                to={`/?tab=${tabKeys[i]}&sort=${sort}#why-kotlin`}
+              >
+                {tab.title}
+              </Link>
+            </Tab>
+          ))}
+        </TabList>
+        <TabSeparator />
+        <pre className="programming-language__code kto-offset-top-16">
+          <code className="hljs" dangerouslySetInnerHTML={{ __html: highlighted }} />
+        </pre>
+      </div>
+    </div>
+  );
+}
